@@ -187,7 +187,6 @@ public class ComposeFunctions {
 				for(int j=0; j<numberAttachments; j++)
 				{
 					AttachmentComponents item = (AttachmentComponents) attachments.get(j);
-					//String path = "MailServer/Users/" + receiver + "/Inbox/" + uniqueID + "/Attachments";
 					writeInAttachGeneral.write(item.fileName + '\n');
 					try {
 						String idk = "MailServer/Users/" + receiver + "/Inbox/" + uniqueID + "/Attachments/" + item.fileName;
@@ -231,6 +230,8 @@ public class ComposeFunctions {
 	
 	public void moveToDraft(String loggedInEmail, String subject, String bodyText, String priority, SinglyLinkedList attachments)
 	{
+		int numberAttachments = 0;
+		if(attachments != null) numberAttachments = attachments.size();
 		String uniqueID = UUID.randomUUID().toString();
 		File emailToDraft = new File("MailServer/Users/" + loggedInEmail + "/Draft/" + uniqueID);
 		emailToDraft.mkdir();
@@ -253,6 +254,8 @@ public class ComposeFunctions {
 		{
 			
 		}
+		File pathToAllWords = new File("MailServer/Users/" + loggedInEmail + "/Draft/All_Words.txt");
+		FileWriter writeInAllWords = null;
 		File toSubjectWrite = new File("MailServer/Users/" + loggedInEmail + "/Draft/" + uniqueID + "/subject.txt");
 		FileWriter writeInFile = null;
 		File toBodyTextWrite = new File("MailServer/Users/" + loggedInEmail + "/Draft/" + uniqueID + "/bodyText.txt");
@@ -260,9 +263,40 @@ public class ComposeFunctions {
 		File toAllEmailInfo = new File("MailServer/Users/" + loggedInEmail + "/Draft/All_Emails_Info.txt");
 		FileWriter writeInFileInfo = null;
 		try {
+			writeInAllWords = new FileWriter(pathToAllWords, true);
+			String[] wordsHolder = bodyText.split(" ");
+			writeInAllWords.write(uniqueID + '\n');
+			for(int z=0; z<wordsHolder.length; z++) writeInAllWords.write(wordsHolder[z] + '\n');
+			writeInAllWords.write("###" + '\n');
+			writeInAllWords.close();
 			writeInFile = new FileWriter(toSubjectWrite, true);
 			writeInFile2 = new FileWriter(toBodyTextWrite, true);
 			writeInFileInfo = new FileWriter(toAllEmailInfo, true);
+			if(numberAttachments > 0)
+			{
+				File pathToAllAttachments = new File("MailServer/Users/" + loggedInEmail + "/Draft/All_Attachments.txt");
+				FileWriter writeInAllAttachments = null;
+				try {
+					writeInAllAttachments = new FileWriter(pathToAllAttachments, true);
+					writeInAllAttachments.write(uniqueID + '\n');
+					Attachments objx = new Attachments();
+					for(int j=0; j<numberAttachments; j++)
+					{
+						AttachmentComponents item = (AttachmentComponents) attachments.get(j);
+						writeInAllAttachments.write(item.fileName + '\n');
+						writeInAllAttachments.write(item.filePath + '\n');
+						try {
+							String idk = "MailServer/Users/" + loggedInEmail + "/Draft/" + uniqueID + "/Attachments/" + item.fileName;
+							objx.copyFile(item.filePath, idk);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+					writeInAllAttachments.write("###" + '\n');
+					writeInAllAttachments.close();
+					
+				}catch(Exception e) {}
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -526,7 +560,7 @@ public class ComposeFunctions {
 		String delimitter = " ";
 		String[] temp;
 		temp = split.split(delimitter);*/
-		test.moveToDraft("mohannad123456@gmail.com", "Hello old friend", "This is a body text example", "a", testAttach);
+		test.moveToDraft("mohannad123456@gmail.com", "Hello old friend", "This is a body text example", "a", null);
 	}
 
 }
