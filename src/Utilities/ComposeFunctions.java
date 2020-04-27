@@ -303,7 +303,7 @@ public class ComposeFunctions {
 		try {
 			writeInFile2.write(bodyText);
 			writeInFile.write(subject);
-			writeInFileInfo.write(uniqueID + '\n' + dtf.format(now) + '\n' + subject + '\n' + "###" + '\n');
+			writeInFileInfo.write(uniqueID + '\n' + priority + '\n' + dtf.format(now) + '\n' + subject + '\n' + "###" + '\n');
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -324,7 +324,12 @@ public class ComposeFunctions {
 		File fromLocationSubject = new File("MailServer/Users/" + loggedInEmail + '/'  +from +'/'+ID + "/subject.txt");
 		File fromLocationBodyText = new File("MailServer/Users/" + loggedInEmail + '/'  +from +'/'+ID + "/bodyText.txt");
 		File fromLocationInfo = new File("MailServer/Users/" + loggedInEmail + '/' + from + "/All_Emails_Info.txt");
+		File fromLocationAllWords = new File("MailServer/Users/"+loggedInEmail +'/' +from + "/All_Words.txt");
+		File fromLocationAllAttachments = new File("MailServer/Users/" + loggedInEmail + '/' + from + "/All_Attachments.txt");
+		File fromLocationAttachments = new File("MailServer/Users/" + loggedInEmail + '/' + from + '/' + ID + "/Attachments");
 		trashPath.mkdir();
+		File pathToAttachmentFolder = new File("MailServer/Users/" + loggedInEmail + "/Trash/" + ID + "/Attachments");
+		pathToAttachmentFolder.mkdir();
 		
 		String createSubject = "MailServer" + File.separator + "Users" + File.separator + loggedInEmail + File.separator + "Trash" + File.separator
 				+ ID + File.separator + "subject.txt";
@@ -346,14 +351,37 @@ public class ComposeFunctions {
 		BufferedReader brSubject = null;
 		BufferedReader brBodyText = null;
 		BufferedReader brInfo = null;
+		BufferedReader brAllWords = null;
 		String holdSubject = null;
 		SinglyLinkedList holdBody = new SinglyLinkedList();
 		SinglyLinkedList holdInfo = new SinglyLinkedList();
+		SinglyLinkedList holdAllWordsBig = new SinglyLinkedList();
+		SinglyLinkedList holdAllWordsSmall = new SinglyLinkedList();
+		
 		boolean found = false;
 		try {
+			brAllWords = new BufferedReader(new FileReader(fromLocationAllWords));
 			brSubject = new BufferedReader(new FileReader(fromLocationSubject));
 			brBodyText = new BufferedReader(new FileReader(fromLocationBodyText));
 			brInfo = new BufferedReader(new FileReader(fromLocationInfo));
+			//work on all words
+			String allWordsHolder = null;
+			boolean falseForBig_TrueForSmall = false;
+			while((allWordsHolder = brAllWords.readLine()) != null)
+			{
+				if(allWordsHolder.equals(ID)) falseForBig_TrueForSmall = true;
+				if(allWordsHolder.equals("###") && falseForBig_TrueForSmall) {
+					falseForBig_TrueForSmall = false;
+					holdAllWordsSmall.add(allWordsHolder);
+					continue;
+				}
+				if(falseForBig_TrueForSmall) holdAllWordsSmall.add(allWordsHolder);
+				else holdAllWordsBig.add(allWordsHolder);
+			}
+			brAllWords.close();
+			fromLocationAllWords.delete();
+			//end
+			
 			holdSubject = brSubject.readLine();
 			String infoHolder = new String();
 			while((infoHolder = brInfo.readLine()) != null) {
@@ -373,7 +401,45 @@ public class ComposeFunctions {
 			brInfo.close();
 			brSubject.close();
 			brBodyText.close();
+			
 		}catch(Exception e) {}
+		//make a new all words and fill it with big linked list and append the small linked list to all words in trash
+		String newAllWordsString = "MailServer" + File.separator + "Users" + File.separator + loggedInEmail + File.separator + from + File.separator
+				+ "All_Words.txt";
+		File newAllWords = new File(newAllWordsString);
+		newAllWords.getParentFile().mkdirs();
+		try {
+			newAllWords.createNewFile();
+		}catch(Exception e) {}
+		File pathToNewAllWords = new File("MailServer/Users/" + loggedInEmail + '/' + from +"/All_Words.txt");
+		FileWriter writeInNewAllWords = null;
+		try {
+			writeInNewAllWords = new FileWriter(pathToNewAllWords, true);
+			int sizeOfBig = holdAllWordsBig.size();
+			for(int i=0; i<sizeOfBig; i++) {
+				writeInNewAllWords.write(String.valueOf(holdAllWordsBig.get(i)) + '\n');
+			}
+			writeInNewAllWords.close();
+		}catch(Exception e) {}
+		
+		//write in all words in trash
+		File pathOfAllWordsInTrash = new File("MailServer/Users/" + loggedInEmail + "/Trash/All_Words.txt");
+		FileWriter writeInAllWordsTrash = null;
+		try {
+			writeInAllWordsTrash = new FileWriter(pathOfAllWordsInTrash, true);
+			int sizeSmall = holdAllWordsSmall.size();
+			for(int i=0; i<sizeSmall; i++)
+			{
+				writeInAllWordsTrash.write(String.valueOf(holdAllWordsSmall.get(i)) + '\n');
+			}
+			
+			writeInAllWordsTrash.close();
+		}catch(Exception e) {}
+		
+		//end
+		
+		//end
+		
 		File toAllEmailInfo = new File("MailServer/Users/" + loggedInEmail + "/Trash/All_Emails_Info.txt");
 		FileWriter allEmailInfoWriter = null;
 		File toTrashSubject = new File("MailServer/Users/" + loggedInEmail + "/Trash/"+ID+"/subject.txt");
@@ -387,9 +453,14 @@ public class ComposeFunctions {
 			textBodyWriter = new FileWriter(toTrashBody, true);
 			allEmailInfoWriter = new FileWriter(toAllEmailInfo, true);
 			subjectWriter.write(holdSubject + '\n');
+			boolean wroteFrom = false;
 			for(int i=0; i<sizeInfo; i++)
 			{
 				allEmailInfoWriter.write(String.valueOf(holdInfo.get(i)) + '\n');
+				if(!wroteFrom) {
+					allEmailInfoWriter.write(from + '\n');
+					wroteFrom = true;
+				}
 			}
 			for(int i=0; i<size; i++)
 			{
@@ -401,12 +472,66 @@ public class ComposeFunctions {
 			subjectWriter.close();
 			fromLocationSubject.delete();
 			fromLocationBodyText.delete();
-			fromLocation.delete();
 		}catch(Exception e) {}
 		//end
 		
-		//erase info from all emails info for deletedEmails
+		//erase all info, all attachments from all emails info for deletedEmails
 		SinglyLinkedList eraser = new SinglyLinkedList();
+		File pathToAllAttachments = new File("MailServer/Users/" + loggedInEmail + "/Trash/All_Attachments.txt");
+		FileWriter writeInAllAttachments = null;
+		try {
+			Attachments toCopy = new Attachments();
+			writeInAllAttachments = new FileWriter(pathToAllAttachments, true);
+			String[] tempToCheckSize = fromLocationAttachments.list();
+			boolean hasAttachments = false;
+			if(tempToCheckSize.length > 0) {
+				writeInAllAttachments.write(ID + '\n');
+				hasAttachments = true;
+			}
+			for(String fileName : fromLocationAttachments.list()) {
+				writeInAllAttachments.write(fileName + '\n');
+				toCopy.copyFile("MailServer/Users/" + loggedInEmail + '/' + from + '/' + ID + "/Attachments/"+fileName,
+						"MailServer/Users/" + loggedInEmail + "/Trash/" + ID + "/Attachments/" + fileName);
+				File toBeDeleted = new File("MailServer/Users/" + loggedInEmail + '/' + from + '/' + ID + "/Attachments/"+fileName);
+				toBeDeleted.delete();
+			}
+			if(hasAttachments)writeInAllAttachments.write("###" + '\n');
+			writeInAllAttachments.close();
+			fromLocationAttachments.delete();
+		}catch(Exception e) {e.printStackTrace();}
+		BufferedReader brAttachments = null;
+		SinglyLinkedList holdAttachments = new SinglyLinkedList();
+		try {
+			brAttachments = new BufferedReader(new FileReader(fromLocationAllAttachments));
+			boolean skipAttach = false;
+			String checker;
+			while((checker = brAttachments.readLine()) != null)
+			{
+				if(checker.equals(ID)) skipAttach = true;
+				if(checker.equals("###") && skipAttach) {
+					skipAttach = false;
+					continue;
+				}
+				if(!skipAttach) holdAttachments.add(checker);
+			}
+			brAttachments.close();
+			fromLocationAllAttachments.delete();
+		}catch(Exception e) {}
+		String newPathToAllAttachments = "MailServer" + File.separator + "Users" + File.separator + loggedInEmail + File.separator + from
+				+ File.separator + "All_Attachments.txt";
+		File newAllAttachmentsFile = new File(newPathToAllAttachments);
+		newAllAttachmentsFile.getParentFile().mkdirs();
+		FileWriter writeInNewAllAttachments = null;
+		try {
+			newAllAttachmentsFile.createNewFile();
+			writeInNewAllAttachments = new FileWriter(newAllAttachmentsFile, true);
+			int sizeBigAttachments = holdAttachments.size();
+			for(int i=0; i<sizeBigAttachments; i++) writeInNewAllAttachments.write(String.valueOf(holdAttachments.get(i)) + '\n');
+			writeInNewAllAttachments.close();
+		}catch(Exception e) {}
+		
+		//end
+		
 		boolean skip = false;
 		BufferedReader brErase = null;
 		try {
@@ -435,14 +560,33 @@ public class ComposeFunctions {
 				writeFromEraseList.write(String.valueOf(eraser.get(i)) + '\n');
 			}
 			writeFromEraseList.close();
+			fromLocation.delete();
 		}catch(Exception e) {}
 		
 		//end
 		
  	}
 	public EmailComponents[] displayEmails(String loggedInEmail, String folder, int start, int end) {
-		boolean draftOrSent = false;
-		if(folder.equals("Draft") || folder.equals("Sent")) draftOrSent = true;
+		
+		boolean isTrash = false, isInbox = false, isDraft = false, isSent = false;
+
+		//to check for kind of folder
+		switch(folder) {
+		case "Trash":
+			isTrash = true;
+			break;
+		case "Inbox":
+			isInbox = true;
+			break;
+		case "Sent":
+			isSent = true;
+			break;
+		case "Draft":
+			isDraft = true;
+			break;
+		}
+		//end
+		
 		// filling the doubly linked list with all the IDs in the folder
 		DLList IDholder = new DLList();
 		File pathForDoubly = new File("MailServer/Users/" + loggedInEmail + '/' + folder + "/All_Emails_Info.txt");
@@ -468,43 +612,85 @@ public class ComposeFunctions {
 		if(end > IDholder.size()) arraySize = IDholder.size() - start;
 		else arraySize = end - start + 1;
 		EmailComponents emails[] = new EmailComponents[arraySize];
-		for(int i=0; i<arraySize; i++) {
-			emails[i] = new EmailComponents();
-			if(draftOrSent) emails[i].sender = null;
-		}
+
 		BufferedReader brArray=null;
 		try {	
 			for(int i=0; i<arraySize; i++)
 			{
+				emails[i] = new EmailComponents();
 				brArray = new BufferedReader(new FileReader(pathForDoubly));
 				emails[i].ID = String.valueOf(IDholder.get(start+i));
 				String temp = new String();
+				String folderTypeForTrash = new String();
 				while((temp = brArray.readLine()) != null)
 				{
 					if(temp.equals(emails[i].ID))
 					{
+						if(isTrash) folderTypeForTrash = brArray.readLine();
+						if((isTrash && folderTypeForTrash.equals("Inbox")) || isInbox) {
+							isInbox = true;
+							emails[i].receivers = null;
+						}
+						else if((isTrash && folderTypeForTrash.equals("Sent")) || isSent) {
+							isSent = true;
+							emails[i].sender = null;
+						}
+						else if((isTrash && folderTypeForTrash.equals("Draft")) || isDraft) {
+							emails[i].sender = null;
+							emails[i].receivers = null;
+						}
 						emails[i].priority = String.valueOf(brArray.readLine());
 						emails[i].time = brArray.readLine();
 						emails[i].subject = brArray.readLine();
-						if(!draftOrSent)emails[i].sender = brArray.readLine();
+						if(isInbox) emails[i].sender = brArray.readLine();
+						while(isSent && !((temp = brArray.readLine()).equals("###")))emails[i].receivers.add(temp);
 						break;
 					}
 				}
+				
 				brArray.close();
-				/*File pathToBodyText = new File("MailServer/Users/" + loggedInEmail + '/' + folder + '/' + emails[i].ID + "/bodyText.txt");
-				brArray = new BufferedReader(new FileReader(pathToBodyText));
-				emails[i].bodyText = "";
-				String placeHolder = new String();
-				while((placeHolder = brArray.readLine()) != null)
-				{
-					emails[i].bodyText += placeHolder + '\n';
+				String pathToAttachments = "MailServer/Users/" + loggedInEmail + '/' + folder + '/' + emails[i].ID + "/Attachments";
+				File reachFileToEmptyIt = new File(pathToAttachments);
+				boolean attachmentsExist = false;
+				for(String attachHolder : reachFileToEmptyIt.list()) {
+					attachmentsExist = true;
+					emails[i].attachments.add(pathToAttachments + '/' + attachHolder);
 				}
-				brArray.close();*/
+				if(!attachmentsExist) emails[i].attachments = null;
 			}
-		}catch(Exception e) {}
+		}catch(Exception e) {e.printStackTrace();}
+		//end
+	
+		return emails;
+	}
+	public EmailComponents showEmail(String loggedInEmail, String folder, String ID, EmailComponents[] emails)
+	{
+		//shows us at what index the neeeded email exists
+		int index=0;
+		while(index < emails.length)
+		{
+			if(ID.equals(emails[index].ID)) break;
+			index++;
+		}
 		//end
 		
-		return emails;
+		//making an object and fill its attributes with the already saved ones
+		EmailComponents email = emails[index];
+		email.bodyText = "";
+		File bodyPath = new File("MailServer/Users/" + loggedInEmail + '/' + folder + '/' + ID + "/bodyText.txt");
+		BufferedReader brBody = null;
+		try {
+			brBody = new BufferedReader(new FileReader(bodyPath));
+			String reader = new String();
+			while((reader = brBody.readLine()) != null)
+			{
+				email.bodyText += reader + '\n';
+			}
+			brBody.close();
+		}catch(Exception e) {e.printStackTrace();}
+		//end
+		
+		return email;
 	}
 	public boolean emailExists(String email)
 	{
@@ -519,8 +705,10 @@ public class ComposeFunctions {
 		try {
 			while((comparator = readUsers.readLine()) != null)
 			{
+				//to skip username and passwords to be able to get to the emails
 				readUsers.readLine();
 				readUsers.readLine();
+				//end
 				if(email.equals(comparator)) return true;
 			}
 		} catch (IOException e) {
@@ -533,7 +721,7 @@ public class ComposeFunctions {
 	
 	
 	public static void main(String[] args) {
-		ComposeFunctions test = new ComposeFunctions();
+		/*ComposeFunctions test = new ComposeFunctions();
 		QueueLinkedBased queueTest = new QueueLinkedBased();
 		SinglyLinkedList testAttach = new SinglyLinkedList();
 		AttachmentComponents obj1 = new AttachmentComponents();
@@ -550,17 +738,26 @@ public class ComposeFunctions {
 		obj3.filePath = "E:/JavaProject/Tables.pdf";
 		testAttach.add(obj3);
 		queueTest.enqueue("nasr1234@gmail.com");
-		queueTest.enqueue("ali123456@gmail.com");
+		queueTest.enqueue("ali123456@gmail.com");*/
 		//test.deleteEmail("nasr1234@gmail.com", "Inbox", "ae6da8d0-624e-4b10-802c-80fd3ee5e41d");
-		//test.sendEmail("mohannad123456@gmail.com", queueTest, "hello my friend", "Hello friend,\n how are you?", String.valueOf('a'), null);
-		//EmailComponents[] testArray = new EmailComponents[10];
-		//testArray = test.displayEmails("nasr1234@gmail.com", "Inbox", 0, 1);
-		//for(int i=0; i<testArray.length; i++) System.out.println(testArray[i].ID);
-		/*String split = "hello world my name is";
-		String delimitter = " ";
-		String[] temp;
-		temp = split.split(delimitter);*/
-		test.moveToDraft("mohannad123456@gmail.com", "Hello old friend", "This is a body text example", "a", null);
+		//test.sendEmail("mohannad123456@gmail.com", queueTest, "hello my friend", "Hello friend,\nhow are you?", "c", testAttach);
+		//EmailComponents[] testArray;
+		//testArray = test.displayEmails("mohannad123456@gmail.com", "Sent", 0, 100);
+		//for(int i=0; i<testArray.length; i++) System.out.println(testArray[i].receivers.get(0));
+		/*EmailComponents email = test.showEmail("mohannad123456@gmail.com", "Sent", "36daffc7-937f-4b03-91a7-297f2f4f3501", testArray);
+		System.out.println("Email ID: " + email.ID);
+		System.out.println("Email subject: " + email.subject);
+		System.out.println("Email body: \n" +email.bodyText);
+		System.out.println("Email sent on: " + email.time);
+		System.out.println("Email Sender: "+email.sender);
+		System.out.println("Email receivers: ");
+		for(int i=0; i<email.receivers.size(); i++)System.out.println(email.receivers.get(i));
+		System.out.println("Email priority: "+email.priority);
+		
+		System.out.println("Email attachments: ");
+		int size = email.attachments.size();
+		for(int i=0; i<size; i++) System.out.println(email.attachments.get(i));*/
+		//test.moveToDraft("mohannad123456@gmail.com", "Hello old friend", "This is a body text example", "a", testAttach);
+		//test.deleteEmail("mohannad123456@gmail.com", "Draft", "703de836-613f-4113-9b6a-650f6156b24f");
 	}
-
 }
