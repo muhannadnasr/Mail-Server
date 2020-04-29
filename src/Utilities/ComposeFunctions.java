@@ -117,7 +117,9 @@ public class ComposeFunctions {
 			writeInAllWordsSender.write(uniqueID + '\n');
 			String[] allWordsHolder;
 			allWordsHolder = bodyText.split(" ");
-			for(int z=0; z<allWordsHolder.length; z++) writeInAllWordsSender.write(allWordsHolder[z] + '\n');
+			for(int z=0; z<allWordsHolder.length; z++) writeInAllWordsSender.write(allWordsHolder[z].replaceAll("[^a-zA-Z]", "") + '\n');
+			allWordsHolder = subject.split(" ");
+			for(int z=0; z<allWordsHolder.length; z++) writeInAllWordsSender.write(allWordsHolder[z].replaceAll("[^a-zA-Z]", "") + '\n');
 			writeInAllWordsSender.write("###" + '\n');
 			writeInAllWordsSender.close();
 		}catch(Exception e) {}
@@ -177,7 +179,9 @@ public class ComposeFunctions {
 				String[] bodyTextWordsHolder;
 				bodyTextWordsHolder = bodyText.split(" ");
 				writeInAllWordsReceiver.write(uniqueID+'\n');
-				for(int z=0; z<bodyTextWordsHolder.length; z++) writeInAllWordsReceiver.write(bodyTextWordsHolder[z]+'\n');
+				for(int z=0; z<bodyTextWordsHolder.length; z++) writeInAllWordsReceiver.write(bodyTextWordsHolder[z].replaceAll("[^a-zA-Z]", "")+'\n');
+				bodyTextWordsHolder = subject.split(" ");
+				for(int z=0; z<bodyTextWordsHolder.length; z++) writeInAllWordsReceiver.write(bodyTextWordsHolder[z].replaceAll("[^a-zA-Z]", "") + '\n');
 				writeInAllWordsReceiver.write("###"+'\n');
 				writeInAllWordsReceiver.close();
 				writeInFile = new FileWriter(toSubjectWrite, true);
@@ -266,7 +270,9 @@ public class ComposeFunctions {
 			writeInAllWords = new FileWriter(pathToAllWords, true);
 			String[] wordsHolder = bodyText.split(" ");
 			writeInAllWords.write(uniqueID + '\n');
-			for(int z=0; z<wordsHolder.length; z++) writeInAllWords.write(wordsHolder[z] + '\n');
+			for(int z=0; z<wordsHolder.length; z++) writeInAllWords.write(wordsHolder[z].replaceAll("[^a-zA-Z]", "") + '\n');
+			wordsHolder = subject.split(" ");
+			for(int z=0; z<wordsHolder.length; z++) writeInAllWords.write(wordsHolder[z].replaceAll("[^a-zA-Z]", "") + '\n');
 			writeInAllWords.write("###" + '\n');
 			writeInAllWords.close();
 			writeInFile = new FileWriter(toSubjectWrite, true);
@@ -692,6 +698,193 @@ public class ComposeFunctions {
 		
 		return email;
 	}
+	public void deleteFromTrash(String loggedInEmail, String ID)
+	{
+		File fromLocationAllInfo = new File("MailServer/Users/" + loggedInEmail + "/Trash/All_Emails_Info.txt");
+		File fromLocationAllAttachments = new File("MailServer/Users/" + loggedInEmail + "/Trash/All_Attachments.txt");
+		File fromLocationAllWords = new File("MailServer/Users/" + loggedInEmail + "/Trash/All_Words.txt");
+		File fromLocation = new File("MailServer/Users/" + loggedInEmail + "/Trash/" + ID);
+		
+		SinglyLinkedList keeper = new SinglyLinkedList();
+		
+		//THIS PART IS TO GET ALL INFO EXCEPT FOR EMAIL TO BE DELETED!
+		BufferedReader brAllInfo = null;
+		try {
+			brAllInfo = new BufferedReader(new FileReader(fromLocationAllInfo));
+			String temp = new String();
+			boolean skip = false;
+			while((temp = brAllInfo.readLine()) != null)
+			{
+				if(temp.equals(ID)) {
+					skip = true;
+					continue;
+				}
+				if(skip && temp.equals("###"))
+				{
+					skip = false;
+					continue;
+				}
+				if(!skip) keeper.add(temp);
+			}
+			brAllInfo.close();
+			fromLocationAllInfo.delete();
+		}catch(Exception e) {e.printStackTrace();}
+		//END
+		
+		//THIS PART IS TO RE INSERT THE DATA NEEDED IN ALL INFO FILE
+		
+		String pathToNewAllInfo = "MailServer" + File.separator + "Users" + File.separator + loggedInEmail + File.separator + "Trash" + File.separator 
+				+ "All_Emails_Info.txt";
+		File newAllInfo = new File(pathToNewAllInfo);
+		newAllInfo.getParentFile().mkdirs();
+		FileWriter writeInNewAllInfo = null;
+		try {
+			newAllInfo.createNewFile();
+			writeInNewAllInfo = new FileWriter(newAllInfo, true);
+			int size = keeper.size();
+			for(int i=0; i<size; i++) writeInNewAllInfo.write(String.valueOf(keeper.get(i))+ '\n');
+			writeInNewAllInfo.close();
+		}catch(Exception e) {e.printStackTrace();}
+		
+		keeper = new SinglyLinkedList();
+		//END
+		
+		//THIS PART IS TO WORK ON ALL ATTACHMENTS
+		BufferedReader brAllAttachments = null;
+		try {
+			brAllAttachments = new BufferedReader(new FileReader(fromLocationAllAttachments));
+			String temp = new String();
+			boolean skip = false;
+			while((temp = brAllAttachments.readLine()) != null)
+			{
+				if(temp.equals(ID)) {
+					skip = true;
+					continue;
+				}
+				if(skip && temp.equals("###")) {
+					skip = false;
+					continue;
+				}
+				if(!skip) keeper.add(temp);
+			}
+			brAllAttachments.close();
+			fromLocationAllAttachments.delete();
+		}catch(Exception e) {e.printStackTrace();}
+		
+		String pathToNewAllAttachments = "MailServer" + File.separator + "Users" + File.separator + loggedInEmail + File.separator + "Trash" + File.separator 
+				+ "All_Attachments.txt";
+		File newAllAttachments = new File(pathToNewAllAttachments);
+		newAllAttachments.getParentFile().mkdirs();
+		FileWriter writeInAllAttachments = null;
+		try {
+			newAllAttachments.createNewFile();
+			writeInAllAttachments = new FileWriter(newAllAttachments, true);
+			int size = keeper.size();
+
+			for(int i=0; i<size; i++) {
+				writeInAllAttachments.write(String.valueOf(keeper.get(i)) + '\n');
+			}
+			writeInAllAttachments.close();
+		}catch(Exception e) {e.printStackTrace();}
+		
+		keeper = new SinglyLinkedList();
+		//END
+		
+		//THIS PART IS TO WORK ON ALL WORDS
+		BufferedReader brAllWords = null;
+		try {
+			brAllWords = new BufferedReader(new FileReader(fromLocationAllWords));
+			String temp = new String();
+			boolean skip = false;
+			while((temp = brAllWords.readLine()) != null)
+			{
+				if(temp.equals(ID)) {
+					skip = true;
+					continue;
+				}
+				if(skip && temp.equals("###")) {
+					skip = false;
+					continue;
+				}
+				if(!skip) keeper.add(temp);
+			}
+			brAllWords.close();
+			fromLocationAllWords.delete();
+		}catch(Exception e) {e.printStackTrace();}
+		String pathToNewAllWords = "MailServer" + File.separator + "Users" + File.separator + loggedInEmail + File.separator + "Trash" + File.separator 
+				+ "All_Words.txt";
+		File newAllWords = new File(pathToNewAllWords);
+		newAllWords.getParentFile().mkdirs();
+		FileWriter writeInAllWords = null;
+		try {
+			writeInAllWords = new FileWriter(newAllWords, true);
+			int size = keeper.size();
+			for(int i=0; i<size; i++) writeInAllWords.write(String.valueOf(keeper.get(i)) + '\n');
+			writeInAllWords.close();
+		}catch(Exception e) {e.printStackTrace();}
+		//END
+		
+		//THIS PART IS TO DELETE THE EMAIL FOLDER STARTING WITH ATTACHMENTS THEN DELETING SUBJECT AND BODY TEXT
+		File pathToAttachments = new File("MailServer/Users/" + loggedInEmail + "/Trash/" + ID + "/Attachments");
+		for(String temp : pathToAttachments.list()) {
+			File toBeDeleted = new File("MailServer/Users/" + loggedInEmail + "/Trash/" + ID + "/Attachments/" + temp);
+			toBeDeleted.delete();
+		}
+		pathToAttachments.delete();
+		File pathSubject = new File("MailServer/Users/" + loggedInEmail + "/Trash/" + ID + "/subject.txt");
+		File pathBodyText = new File("MailServer/Users/" + loggedInEmail + "/Trash/" + ID + "/bodyText.txt");
+		pathSubject.delete();
+		pathBodyText.delete();
+		fromLocation.delete();
+		//END
+	}
+	public boolean didMonthPass(String timeNow, String timeEmail)
+	{
+
+		boolean monthPassed = false;
+		boolean yearPassed = false;
+		
+		//for years
+		
+		int holderNow = Integer.parseInt(timeNow.substring(0, 4));
+		int holderEmail = Integer.parseInt(timeEmail.substring(0, 4));
+		if(holderNow - holderEmail == 1) yearPassed = true;
+		else if(holderNow - holderEmail > 1) return true; // if user doesn't open his email for more than a year
+		
+		holderNow = Integer.parseInt(timeNow.substring(5, 7));
+		holderEmail = Integer.parseInt(timeEmail.substring(5, 7));
+		
+		//for months
+		
+		if(yearPassed)
+		{
+			if(holderNow != 1 && holderEmail != 12) return true; // to check for (xyz0/12 and xyz1/01)
+			else monthPassed = true;
+		}
+		
+		if(holderNow - holderEmail == 1) monthPassed = true;
+		else if(holderNow - holderEmail > 1) return true; // if the difference is more than one month
+		
+		holderNow = Integer.parseInt(timeNow.substring(8, 10));
+		holderEmail = Integer.parseInt(timeEmail.substring(8, 10));
+		
+		//for days
+		
+		if(monthPassed && (holderNow >= holderEmail)) return true;
+		
+		return false;
+	}
+	public void deleteEmailAutomatically(String loggedInEmail)
+	{
+		EmailComponents[] emails = displayEmails(loggedInEmail, "Trash", 0, Integer.MAX_VALUE);
+		int emailsNumber = emails.length;
+		for(int i=0; i<emailsNumber; i++)
+		{
+			if(didMonthPass(String.valueOf(dtf.format(now)), emails[i].time)) {
+				deleteFromTrash(loggedInEmail, emails[i].ID);
+			}
+		}
+	}
 	public boolean emailExists(String email)
 	{
 		File users = new File("MailServer/All_Users.txt");
@@ -721,7 +914,7 @@ public class ComposeFunctions {
 	
 	
 	public static void main(String[] args) {
-		/*ComposeFunctions test = new ComposeFunctions();
+		ComposeFunctions test = new ComposeFunctions();
 		QueueLinkedBased queueTest = new QueueLinkedBased();
 		SinglyLinkedList testAttach = new SinglyLinkedList();
 		AttachmentComponents obj1 = new AttachmentComponents();
@@ -738,9 +931,9 @@ public class ComposeFunctions {
 		obj3.filePath = "E:/JavaProject/Tables.pdf";
 		testAttach.add(obj3);
 		queueTest.enqueue("nasr1234@gmail.com");
-		queueTest.enqueue("ali123456@gmail.com");*/
+		queueTest.enqueue("ali123456@gmail.com");
 		//test.deleteEmail("nasr1234@gmail.com", "Inbox", "ae6da8d0-624e-4b10-802c-80fd3ee5e41d");
-		//test.sendEmail("mohannad123456@gmail.com", queueTest, "hello my friend", "Hello friend,\nhow are you?", "c", testAttach);
+		test.sendEmail("mohannad123456@gmail.com", queueTest, "this is, subject!", "Hello friend, how are you?", "c", testAttach);
 		//EmailComponents[] testArray;
 		//testArray = test.displayEmails("mohannad123456@gmail.com", "Sent", 0, 100);
 		//for(int i=0; i<testArray.length; i++) System.out.println(testArray[i].receivers.get(0));
@@ -758,6 +951,10 @@ public class ComposeFunctions {
 		int size = email.attachments.size();
 		for(int i=0; i<size; i++) System.out.println(email.attachments.get(i));*/
 		//test.moveToDraft("mohannad123456@gmail.com", "Hello old friend", "This is a body text example", "a", testAttach);
-		//test.deleteEmail("mohannad123456@gmail.com", "Draft", "703de836-613f-4113-9b6a-650f6156b24f");
+		//test.deleteEmail("nasr1234@gmail.com", "Inbox", "b010c961-faf1-4417-9ad7-6220ffc62aee");
+		//test.deleteFromTrash("nasr1234@gmail.com", "2bbc5aa9-6d82-4f1b-ae5c-24ca5045ebcb");
+		//test.deleteEmailAutomatically("nasr1234@gmail.com");
+		String x = new String();
+		System.out.println(x);
 	}
 }
