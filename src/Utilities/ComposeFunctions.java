@@ -885,6 +885,64 @@ public class ComposeFunctions {
 			}
 		}
 	}
+	public EmailComponents[] emailsContainingWord(String loggedInEmail, String folder, String words) {
+		String[] wordsToSearchFor = words.split(" ");
+		SinglyLinkedList emailsHolder = new SinglyLinkedList();
+		EmailComponents[] allEmails = displayEmails(loggedInEmail, folder, 0, Integer.MAX_VALUE);
+		File pathToAllWords = new File("MailServer/Users/" + loggedInEmail + '/' + folder + "/All_Words.txt");
+		BufferedReader br = null;
+		///////////////////////////////////////////
+		System.out.println("words "+wordsToSearchFor.length);
+		System.out.println("emails "+allEmails.length);
+		///////////////////////////////////////////
+		for(int i=0; i<wordsToSearchFor.length; i++)
+		{
+			boolean readID = true;
+			String IDholder = new String();
+			String temp = new String();
+			try {
+				br = new BufferedReader(new FileReader(pathToAllWords));
+				while((temp = br.readLine()) != null)
+				{
+					if(readID) {
+						IDholder = temp;
+						readID = false;
+						continue;
+					}
+					if(temp.equals("###")) {
+						readID = true;
+						continue;
+					}
+					if(temp.equals(wordsToSearchFor[i])) {
+						emailsHolder.remove(IDholder);
+						emailsHolder.add(IDholder);
+					}
+				}
+			} catch (Exception e) {e.printStackTrace();}
+		}
+		if(emailsHolder.size() == 0) return null;
+		EmailComponents[] emailsContainingWords = new EmailComponents[emailsHolder.size()];
+		int size = emailsHolder.size();
+		/////////////////////////////////////////////
+		for(int i=0; i<size; i++) {
+			System.out.println(emailsHolder.get(i));
+		}
+		System.out.println("////////////////////////////////////////////////////////");
+		////////////////////////////////////////////
+		for(int i=0; i<size; i++)
+		{
+			emailsContainingWords[i] = new EmailComponents();
+			for(int j=0; j<allEmails.length; j++)
+			{
+				if(allEmails[j].ID.equals(emailsHolder.get(i)))
+				{
+					emailsContainingWords[i] = allEmails[j];
+					break;
+				}
+			}
+		}
+		return emailsContainingWords;
+	}
 	public boolean emailExists(String email)
 	{
 		File users = new File("MailServer/All_Users.txt");
@@ -933,7 +991,7 @@ public class ComposeFunctions {
 		queueTest.enqueue("nasr1234@gmail.com");
 		queueTest.enqueue("ali123456@gmail.com");
 		//test.deleteEmail("nasr1234@gmail.com", "Inbox", "ae6da8d0-624e-4b10-802c-80fd3ee5e41d");
-		test.sendEmail("mohannad123456@gmail.com", queueTest, "this is, subject!", "Hello friend, how are you?", "c", testAttach);
+		//test.sendEmail("mohannad123456@gmail.com", queueTest, "this is, subject!", "Hello friend, \n how are you?", "c", testAttach);
 		//EmailComponents[] testArray;
 		//testArray = test.displayEmails("mohannad123456@gmail.com", "Sent", 0, 100);
 		//for(int i=0; i<testArray.length; i++) System.out.println(testArray[i].receivers.get(0));
@@ -950,11 +1008,15 @@ public class ComposeFunctions {
 		System.out.println("Email attachments: ");
 		int size = email.attachments.size();
 		for(int i=0; i<size; i++) System.out.println(email.attachments.get(i));*/
-		//test.moveToDraft("mohannad123456@gmail.com", "Hello old friend", "This is a body text example", "a", testAttach);
+		//test.moveToDraft("mohannad123456@gmail.com", "Hello! old, fri.end", "hello \n hi different", "a", testAttach);
+		/*EmailComponents[] testArray = test.emailsContainingWord("mohannad123456@gmail.com", "Draft", "run get run");
+		for(int i=0; i<testArray.length; i++)
+		{
+			System.out.println(testArray[i].ID);
+		}*/
 		//test.deleteEmail("nasr1234@gmail.com", "Inbox", "b010c961-faf1-4417-9ad7-6220ffc62aee");
 		//test.deleteFromTrash("nasr1234@gmail.com", "2bbc5aa9-6d82-4f1b-ae5c-24ca5045ebcb");
 		//test.deleteEmailAutomatically("nasr1234@gmail.com");
-		String x = new String();
-		System.out.println(x);
+
 	}
 }
