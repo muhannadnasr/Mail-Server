@@ -137,8 +137,8 @@ public class ComposeFunctions {
 				if(numberAttachments>0) {
 					writeInAttachGeneral = new FileWriter(inAttach, true);
 					writeInAttachGeneral.write(uniqueID + '\n');
-					writeInFileInfo.write(receiver + '\n');
 				}
+				writeInFileInfo.write(receiver + '\n');
 			}catch(Exception e)
 			{
 				
@@ -981,7 +981,7 @@ public class ComposeFunctions {
 		queueTest.enqueue("nasr1234@gmail.com");
 		queueTest.enqueue("ali123456@gmail.com");
 		//test.deleteEmail("nasr1234@gmail.com", "Inbox", "ae6da8d0-624e-4b10-802c-80fd3ee5e41d");
-		//test.sendEmail("mohannad123456@gmail.com", queueTest, "this is, subject!", "Hello friend, \n how are you?", "c", testAttach);
+		//test.sendEmail("mohannad123456@gmail.com", queueTest, "this is, subject!", "Hello friend, \n how are you?", "c", null);
 		//EmailComponents[] testArray;
 		//testArray = test.displayEmails("mohannad123456@gmail.com", "Sent", 0, 100);
 		//for(int i=0; i<testArray.length; i++) System.out.println(testArray[i].receivers.get(0));
