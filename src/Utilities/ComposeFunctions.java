@@ -891,10 +891,6 @@ public class ComposeFunctions {
 		EmailComponents[] allEmails = displayEmails(loggedInEmail, folder, 0, Integer.MAX_VALUE);
 		File pathToAllWords = new File("MailServer/Users/" + loggedInEmail + '/' + folder + "/All_Words.txt");
 		BufferedReader br = null;
-		///////////////////////////////////////////
-		System.out.println("words "+wordsToSearchFor.length);
-		System.out.println("emails "+allEmails.length);
-		///////////////////////////////////////////
 		for(int i=0; i<wordsToSearchFor.length; i++)
 		{
 			boolean readID = true;
@@ -923,12 +919,6 @@ public class ComposeFunctions {
 		if(emailsHolder.size() == 0) return null;
 		EmailComponents[] emailsContainingWords = new EmailComponents[emailsHolder.size()];
 		int size = emailsHolder.size();
-		/////////////////////////////////////////////
-		for(int i=0; i<size; i++) {
-			System.out.println(emailsHolder.get(i));
-		}
-		System.out.println("////////////////////////////////////////////////////////");
-		////////////////////////////////////////////
 		for(int i=0; i<size; i++)
 		{
 			emailsContainingWords[i] = new EmailComponents();
