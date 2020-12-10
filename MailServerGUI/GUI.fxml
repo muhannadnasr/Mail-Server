@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="752.0" prefWidth="1410.0" style="-fx-background-color: #ffffff;" AnchorPane.rightAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MailServerGUI.GUIController">
+   <children>
+      <Pane fx:id="signup_pane" prefHeight="750.0" prefWidth="1406.0" styleClass="loginContainer" stylesheets="@GUI.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane fx:id="signup_form" layoutX="501.0" layoutY="87.0" prefHeight="592.0" prefWidth="436.0" styleClass="LoginPage" stylesheets="@GUI.css">
+               <children>
+                  <PasswordField fx:id="signup_pass_input" layoutX="38.0" layoutY="285.0" prefHeight="46.0" prefWidth="367.0" promptText="Password" stylesheets="@GUI.css">
+                     <font>
+                        <Font name="Microsoft Sans Serif" size="18.0" />
+                     </font>
+                  </PasswordField>
+                  <Label contentDisplay="RIGHT" graphicTextGap="20.0" layoutX="143.0" layoutY="22.0" prefHeight="88.0" prefWidth="161.0" style="-fx-alignment: center;" text="Sign up" textFill="#006bd4">
+                     <font>
+                        <Font name="Microsoft Sans Serif" size="36.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="signup_email_input" layoutX="38.0" layoutY="205.0" prefHeight="46.0" prefWidth="367.0" promptText="Email " stylesheets="@GUI.css">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <font>
+                        <Font name="Microsoft Sans Serif" size="18.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="signup_button" layoutX="151.0" layoutY="461.0" mnemonicParsing="false" onAction="#SignUpForm" prefHeight="48.0" prefWidth="141.0" stylesheets="@GUI.css" text="Sign up" textFill="WHITE">
+                     <font>
+                        <Font name="Microsoft Sans Serif" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button id="newaccountlink" fx:id="gotologin_button" layoutX="111.0" layoutY="539.0" mnemonicParsing="false" onAction="#SignUpForm" prefHeight="29.0" prefWidth="215.0" stylesheets="@GUI.css" text="alredy have an account? Log in" textFill="#006bd4" underline="true">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="signup_email_info" layoutX="38.0" layoutY="259.0" prefHeight="17.0" prefWidth="367.0" textFill="#d74545" />
+                  <Label fx:id="signup_pass_info" layoutX="38.0" layoutY="338.0" prefHeight="17.0" prefWidth="367.0" textFill="#d74545" />
+                  <TextField fx:id="signup_username_input" layoutX="38.0" layoutY="127.0" prefHeight="46.0" prefWidth="367.0" promptText="User name" stylesheets="@GUI.css">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <font>
+                        <Font name="Microsoft Sans Serif" size="18.0" />
+                     </font>
+                  </TextField>
+                  <Label fx:id="signup_username_info" layoutX="38.0" layoutY="181.0" prefHeight="17.0" prefWidth="367.0" textFill="#d74545" />
+                  <Label fx:id="confirmation_info" layoutX="38.0" layoutY="423.0" prefHeight="17.0" prefWidth="367.0" textFill="#d74545" />
+                  <PasswordField fx:id="signup_password_confirmation" layoutX="38.0" layoutY="370.0" prefHeight="46.0" prefWidth="367.0" promptText="Re Enter Password" stylesheets="@GUI.css">
+                     <font>
+                        <Font name="Microsoft Sans Serif" size="18.0" />
+                     </font>
+                  </PasswordField>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane fx:id="settingsMenu" layoutX="36.0" layoutY="126.0" prefHeight="60.0" prefWidth="100.0" styleClass="settingsPane" stylesheets="@GUI.css">
+         <children>
+            <Button fx:id="logOutButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Log out">
+               <font>
+                  <Font name="Microsoft Sans Serif" size="11.0" />
+               </font>
+            </Button>
+            <Button fx:id="createAccountButton" layoutY="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Create Account" textAlignment="JUSTIFY">
+               <font>
+                  <Font name="Microsoft Sans Serif" size="11.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <AnchorPane layoutX="140.0" prefHeight="750.0" prefWidth="1055.0">
+         <children>
+            <AnchorPane fx:id="MainRightSide" prefHeight="750.0" prefWidth="1205.0">
+               <children>
+                  <Pane fx:id="showContactsPane" layoutX="452.0" prefHeight="750.0" prefWidth="784.0" styleClass="showContactsPane" stylesheets="@ContactsPage.css">
+                     <children>
+                        <Label fx:id="error_label" layoutX="50.0" layoutY="135.0" prefHeight="30.0" prefWidth="600.0" textFill="#f35b5b">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Pane prefHeight="55.0" prefWidth="784.0" styleClass="showContactsTopBar" stylesheets="@ContactsPage.css">
+                           <children>
+                              <Button fx:id="showContactEditButton" layoutX="650.0" layoutY="10.0" mnemonicParsing="false" onAction="#showContactPaneHandle" prefHeight="40.0" prefWidth="40.0">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Resources/pencil.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic></Button>
+                              <Button fx:id="showContactCancelButton" layoutX="734.0" layoutY="10.0" mnemonicParsing="false" onAction="#showContactPaneHandle" prefHeight="40.0" prefWidth="40.0">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Resources/close.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="showContactDeleteButton" layoutX="590.0" layoutY="10.0" mnemonicParsing="false" onAction="#showContactPaneHandle" prefHeight="40.0" prefWidth="40.0">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Resources/bluebin.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="showContactAddButton" layoutX="530.0" layoutY="10.0" mnemonicParsing="false" onAction="#showContactPaneHandle" prefHeight="40.0" prefWidth="40.0">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Resources/bluePlus.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </Pane>
+                        <TextField fx:id="contactNameLabel" layoutX="50.0" layoutY="80.0" prefHeight="50.0" prefWidth="600.0">
+                           <font>
+                              <Font name="Microsoft Sans Serif" size="30.0" />
+                           </font></TextField>
+                        <ScrollPane fx:id="contactEmailsScroll" layoutX="50.0" layoutY="215.0" prefHeight="520.0" prefWidth="684.0" style="-fx-background-color: #ffffff;">
+                          <content>
+                            <AnchorPane fx:id="contactEmailsList" minHeight="0.0" minWidth="0.0" prefHeight="519.0" prefWidth="682.0" style="-fx-background-color: #ffffff;" />
+                          </content>
+                        </ScrollPane>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="newContactPopup_pane" layoutX="384.0" layoutY="150.0" prefHeight="460.0" prefWidth="472.0" styleClass="add_contact_popup" stylesheets="@ContactsPage.css">
+                     <children>
+                        <Button id="addExtra_button" fx:id="addanotheremail_button" layoutX="40.0" layoutY="370.0" mnemonicParsing="false" onAction="#addAnotherEmailTextField" prefHeight="40.0" prefWidth="105.0" stylesheets="@ContactsPage.css" text="Add Email" underline="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="newContactName" layoutX="50.0" layoutY="100.0" prefHeight="45.0" prefWidth="372.0" promptText="Contact name">
+                           <font>
+                              <Font name="Microsoft Sans Serif" size="18.0" />
+                           </font>
+                        </TextField>
+                        <Label layoutX="50.0" layoutY="40.0" prefWidth="200.0" text="New Contact" textAlignment="CENTER" textFill="#006bd4">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                        <ScrollPane fx:id="scroll" accessibleRole="PARENT" layoutX="40.0" layoutY="170.0" prefHeight="200.0" prefWidth="392.0" styleClass=".scroll-pane" stylesheets="@ContactsPage.css">
+                          <content>
+                            <AnchorPane fx:id="popup_scrollPane" minHeight="0.0" minWidth="0.0" prefHeight="198.0" prefWidth="392.0" style="-fx-background-color: white;">
+                                 <children>
+                                    <TextField fx:id="newEmailTextField_1" layoutX="10.0" layoutY="10.0" prefHeight="45.0" prefWidth="320.0" promptText="Contact Email">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                        <Button id="cancelButton" fx:id="popupCancel_button" layoutX="432.0" layoutY="10.0" mnemonicParsing="false" onAction="#showNewContactPopUP" prefHeight="30.0" prefWidth="30.0" stylesheets="@ContactsPage.css">
+                           <graphic>
+                              <ImageView id="cancelimage" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Resources/close.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button id="addContact" fx:id="saveContact_button" layoutX="302.0" layoutY="387.0" mnemonicParsing="false" onAction="#showNewContactPopUP" prefHeight="44.0" prefWidth="126.0" stylesheets="@ContactsPage.css" text="Save Contact" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Microsoft Sans Serif" size="16.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="showEmail_pane" prefHeight="752.0" prefWidth="1240.0" styleClass="showEmail_pane" stylesheets="@showEmailPane.css" AnchorPane.leftAnchor="-4.0">
+                     <children>
+                        <Label fx:id="toLabel" layoutX="70.0" layoutY="125.0" style="-fx-background-color: 0;" text="To" textFill="#006bd4">
+                           <font>
+                              <Font name="Microsoft Sans Serif" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="senderLabel" layoutX="158.0" layoutY="70.0" prefHeight="35.0" prefWidth="600.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ScrollPane fx:id="showreceiversPaneScroll" layoutX="158.0" layoutY="125.0" prefHeight="60.0" prefWidth="670.0">
+                           <content>
+                              <AnchorPane fx:id="showreceiversPanel" minHeight="0.0" minWidth="0.0" prefHeight="58.0" prefWidth="670.0" style="-fx-background-color: #ffffff;" />
+                           </content>
+                        </ScrollPane>
+                        <Label layoutX="75.0" layoutY="210.0" style="-fx-background-color: 0;" text="Subject" textFill="#006bd4">
+                           <font>
+                              <Font name="Microsoft Sans Serif" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="subjectLabel" layoutX="148.0" layoutY="207.0" prefHeight="35.0" prefWidth="600.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="fromLabel" layoutX="72.0" layoutY="74.0" style="-fx-background-color: 0;" text="From" textFill="#006bd4">
+                           <font>
+                              <Font name="Microsoft Sans Serif" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="showEmailBodyText" editable="false" layoutX="75.0" layoutY="250.0" prefHeight="355.0" prefWidth="1006.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font></TextArea>
+                        <ScrollPane fx:id="showAttachmentScroll" layoutX="75.0" layoutY="650.0" prefHeight="60.0" prefWidth="670.0">
+                           <content>
+                              <AnchorPane fx:id="showAttachmentsPanel" minHeight="0.0" minWidth="0.0" prefHeight="58.0" prefWidth="670.0" style="-fx-background-color: #ffffff;" />
+                           </content>
+                        </ScrollPane>
+                        <Button fx:id="showEmailCancelButton" layoutX="1190.0" layoutY="10.0" mnemonicParsing="false" onAction="#showEmailButtonHandle" prefHeight="40.0" prefWidth="40.0">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Resources/close.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="showEmailDeleteButton" layoutX="1120.0" layoutY="10.0" mnemonicParsing="false" onAction="#showEmailButtonHandle" prefHeight="40.0" prefWidth="40.0">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Resources/bluebin.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children></Pane>
+                  <Pane fx:id="show_pane" layoutX="-4.0" layoutY="56.0" prefHeight="695.0" prefWidth="1240.0" styleClass="sent_pane" stylesheets="@SentPage.css" AnchorPane.leftAnchor="-4.0">
+                     <children>
+                        <ScrollPane fx:id="showScroll_pane" layoutY="70.0" prefHeight="544.0" prefWidth="1220.0">
+                           <content>
+                              <AnchorPane fx:id="showEmailsList" minHeight="0.0" minWidth="0.0" prefHeight="536.0" prefWidth="1220.0" style="-fx-background-color: white;" />
+                           </content>
+                        </ScrollPane>
+                        <Label fx:id="showPageLabel" layoutX="20.0" layoutY="10.0" text="Inbox" textFill="#006bd4">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </Label>
+                        <Pane id="menu" fx:id="showSmallMenu" layoutX="950.0" layoutY="20.0" prefHeight="40.0" prefWidth="50.0" stylesheets="@ContactsPage.css">
+                           <children>
+                              <Button fx:id="showDeleteEmailButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" stylesheets="@ContactsPage.css" />
+                           </children>
+                        </Pane>
+                        <Pane id="selectAll" fx:id="showSelectAll" layoutX="1000.0" layoutY="20.0" prefHeight="40.0" prefWidth="150.0" stylesheets="@ContactsPage.css">
+                           <children>
+                              <CheckBox fx:id="showSelectAllButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="19.0" textFill="LIGHTGRAY">
+                                 <font>
+                                    <Font name="Microsoft Sans Serif" size="18.0" />
+                                 </font>
+                              </CheckBox>
+                              <Label fx:id="showSelectAll_label" layoutX="45.0" layoutY="10.0" prefHeight="30.0" prefWidth="100.0" text="Select all" textFill="LIGHTGRAY">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Button fx:id="showNextPage" layoutX="609.0" layoutY="640.0" mnemonicParsing="false" onAction="#navigationHandle" text="Next" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Microsoft Sans Serif" size="18.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="showPrevPage" layoutX="525.0" layoutY="640.0" mnemonicParsing="false" onAction="#navigationHandle" text="Prev" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Microsoft Sans Serif" size="18.0" />
+                           </font>
+                        </Button>
+                     </children></Pane>
+                  <Pane fx:id="compose_pane" layoutX="-4.0" prefHeight="750.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" styleClass="composePage" stylesheets="@ComposePage.css">
+                     <children>
+                        <Button fx:id="composePageCancel" layoutX="1190.0" layoutY="10.0" mnemonicParsing="false" onAction="#cancelComposePage" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: 0; -fx-border-color: 0;">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Resources/close.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Pane fx:id="n" prefHeight="750.0" prefWidth="456.0" styleClass="composeHelperPane" stylesheets="@ComposePage.css">
+                           <children>
+                              <ScrollPane fx:id="composeHelperScroll" layoutX="15.0" layoutY="150.0" prefHeight="585.0" prefWidth="426.0" style="-fx-background-color: #ffffff;">
+                                <content>
+                                  <AnchorPane fx:id="composeHelperContactsList" minHeight="0.0" minWidth="0.0" prefHeight="585.0" prefWidth="426.0" style="-fx-background-color: #ffffff;" />
+                                </content>
+                              </ScrollPane>
+                              <Label layoutX="20.0" layoutY="110.0" text="Contacts" textFill="#006bd4">
+                                 <font>
+                                    <Font name="Microsoft Sans Serif" size="30.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <TextField fx:id="addReceiverEmail" layoutX="560.0" layoutY="45.0" prefHeight="30.0" prefWidth="550.0" styleClass="composePage" stylesheets="@ComposePage.css">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
+                        <Label layoutX="490.0" layoutY="50.0" prefHeight="30.0" text="To">
+                           <font>
+                              <Font name="Microsoft Sans Serif" size="24.0" />
+                           </font>
+                        </Label>
+                        <ScrollPane fx:id="receiversPaneScroll" layoutX="490.0" layoutY="90.0" prefHeight="60.0" prefWidth="670.0">
+                          <content>
+                            <AnchorPane fx:id="receiversPanel" minHeight="0.0" minWidth="0.0" prefHeight="58.0" prefWidth="670.0" style="-fx-background-color: #ffffff;" />
+                          </content>
+                        </ScrollPane>
+                        <Label layoutX="490.0" layoutY="165.0" prefHeight="30.0" text="Subject">
+                           <font>
+                              <Font name="Microsoft Sans Serif" size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="emailSubject" layoutX="580.0" layoutY="160.0" prefHeight="30.0" prefWidth="580.0" styleClass="composePage" stylesheets="@ComposePage.css">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
+                        <TextArea fx:id="newEmailTextBody" layoutX="490.0" layoutY="210.0" prefHeight="390.0" prefWidth="716.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font></TextArea>
+                        <Pane fx:id="composePaneControlPane" layoutX="490.0" layoutY="675.0" prefHeight="60.0" prefWidth="716.0" styleClass="composeControlPane" stylesheets="@ComposePage.css">
+                           <children>
+                              <Button id="sendButton" fx:id="sendButton" layoutX="600.0" layoutY="10.0" mnemonicParsing="false" onAction="#sendEmailHandle" prefHeight="40.0" prefWidth="100.0" stylesheets="@ComposePage.css" text="send" textFill="WHITE">
+                                 <font>
+                                    <Font name="Microsoft Sans Serif" size="18.0" />
+                                 </font>
+                              </Button>
+                              <Button id="attachmentButton" fx:id="attachmentButton" layoutX="530.0" layoutY="10.0" mnemonicParsing="false" onAction="#attachmentHandle" prefHeight="40.0" prefWidth="40.0" stylesheets="@ComposePage.css">
+                                 <font>
+                                    <Font name="Microsoft Sans Serif" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Resources/attachment.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="saveToDraftButton" layoutX="200.0" layoutY="10.0" mnemonicParsing="false" onAction="#saveToDraftHandle" style="-fx-background-color: 0;" text="save to Draft" textFill="#006bd4" underline="true">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <Label fx:id="priorityInfo" layoutX="10.0" layoutY="45.0" prefHeight="5.0" textFill="#ff3355">
+                                 <font>
+                                    <Font name="Microsoft Sans Serif" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children></Pane>
+                        <Button fx:id="addReceiver" layoutX="1110.0" layoutY="45.0" mnemonicParsing="false" onAction="#composeHandle" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: 0;">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Resources/plus.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <ScrollPane fx:id="attachmentScroll" layoutX="490.0" layoutY="605.0" prefHeight="60.0" prefWidth="716.0">
+                           <content>
+                              <AnchorPane fx:id="attachmentPanel" minHeight="0.0" minWidth="0.0" prefHeight="58.0" prefWidth="716.0" style="-fx-background-color: #ffffff;" />
+                           </content>
+                        </ScrollPane>
+                     </children></Pane>
+                  <Pane fx:id="contacts_pane" layoutX="-4.0" layoutY="59.5" prefHeight="695.0" prefWidth="1240.0" styleClass="contacts_pane" stylesheets="@ContactsPage.css" AnchorPane.leftAnchor="0.0">
+                     <children>
+                        <Pane id="selectAll" fx:id="selectAll_pane" layoutX="1000.0" layoutY="20.0" prefHeight="40.0" prefWidth="150.0" stylesheets="@ContactsPage.css">
+                           <children>
+                              <CheckBox fx:id="selectAll" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="19.0" textFill="LIGHTGRAY">
+                                 <font>
+                                    <Font name="Microsoft Sans Serif" size="18.0" />
+                                 </font>
+                              </CheckBox>
+                              <Label fx:id="selectAll_label" layoutX="45.0" layoutY="10.0" prefHeight="30.0" prefWidth="100.0" text="Select all" textFill="LIGHTGRAY">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane id="menu" fx:id="smallMenu" layoutX="900.0" layoutY="20.0" prefHeight="40.0" prefWidth="100.0" stylesheets="@ContactsPage.css">
+                           <children>
+                              <Button fx:id="sendToContactsButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
+                              <Button fx:id="deleteContactButton" layoutX="60.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" stylesheets="@ContactsPage.css" />
+                           </children>
+                        </Pane>
+                        <Label layoutX="20.0" layoutY="10.0" text="Contacts" textFill="#006bd4">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </Label>
+                        <ScrollPane fx:id="contactsScroll_pane" layoutY="70.0" prefHeight="600.0" prefWidth="1220.0">
+                          <content>
+                            <AnchorPane fx:id="contactsList" minHeight="0.0" minWidth="0.0" prefHeight="598.0" prefWidth="1220.0" style="-fx-background-color: white;" />
+                          </content>
+                        </ScrollPane>
+                        <Button id="addContactButton" fx:id="add_contact_button" layoutX="1063.0" layoutY="607.0" mnemonicParsing="false" onAction="#showNewContactPopUP" prefHeight="45.0" prefWidth="140.0" stylesheets="@ContactsPage.css" text="Add Contact" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Pane>
+                  <Pane fx:id="controlBar" prefHeight="60.0" prefWidth="1300.0" styleClass="controlBar" stylesheets="@ControlBar.css">
+                     <children>
+                        <TextField fx:id="searchBar" layoutX="20.0" layoutY="10.0" prefHeight="40.0" prefWidth="466.0" promptText="Search">
+                           <font>
+                              <Font name="Microsoft Sans Serif" size="18.0" />
+                           </font>
+                        </TextField>
+                        <Button fx:id="searchButton" layoutX="500.0" layoutY="10.0" mnemonicParsing="false" onAction="#searchBarHandle" prefHeight="40.0" text="Search" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <Button id="reloadButton" fx:id="reloadButton" layoutX="1200.0" layoutY="10.0" mnemonicParsing="false" onAction="#reloadHandle" prefHeight="40.0" prefWidth="40.0" stylesheets="@ControlBar.css">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Resources/reload.png" />
+                                 </image></ImageView>
+                           </graphic>
+                        </Button>
+                     </children></Pane>
+               </children>
+            </AnchorPane>
+         </children></AnchorPane>
+      <AnchorPane prefHeight="750.0" prefWidth="140.0" styleClass="sideBar" stylesheets="@GUI.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView id="settingsphoto" fx:id="settings_icon" accessibleRole="BUTTON" fitHeight="16.0" fitWidth="24.0" layoutX="112.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/settings.png" />
+               </image>
+            </ImageView>
+            <VBox layoutY="137.0" prefHeight="147.0" prefWidth="140.0">
+               <children>
+                  <Button id="InboxButton" fx:id="inbox_button" alignment="TOP_CENTER" graphicTextGap="25.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="33.0" prefWidth="140.0" stylesheets="@GUI.css" text="Inbox" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Resources/inbox.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Microsoft Sans Serif" size="15.0" />
+                     </font>
+      
+                              </Button>
+                  <Button fx:id="sent_button" alignment="CENTER" graphicTextGap="32.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="33.0" prefWidth="140.0" stylesheets="@GUI.css" text="Sent" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="19.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Resources/paper-plane.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Microsoft Sans Serif" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="draft_button" alignment="TOP_CENTER" graphicTextGap="28.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="33.0" prefWidth="140.0" stylesheets="@GUI.css" text="Draft" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="19.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Resources/copy.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Microsoft Sans Serif" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="trash_button" alignment="TOP_CENTER" graphicTextGap="25.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="33.0" prefWidth="140.0" stylesheets="@GUI.css" text="Trash" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="19.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Resources/bin.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Microsoft Sans Serif" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="contacts_button" alignment="CENTER" graphicTextGap="6.0" layoutX="10.0" layoutY="109.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="33.0" prefWidth="140.0" stylesheets="@GUI.css" text="Contacts" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="19.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Resources/contacts.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Microsoft Sans Serif" size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <Button fx:id="compose_button" alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="15.0" layoutY="637.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="110.0" text="Compose" textAlignment="CENTER">
+               <font>
+                  <Font name="Microsoft Sans Serif" size="20.0" />
+               </font>
+            </Button>
+            <Label id="usernameLabel" fx:id="userNameLabel" alignment="CENTER" layoutX="5.0" layoutY="94.0" prefHeight="32.0" prefWidth="101.0" stylesheets="@GUI.css" text="User name" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Button id="settingsButton" fx:id="settings_button" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="106.0" layoutY="94.0" mnemonicParsing="false" onAction="#settingsMenuHandle" prefHeight="32.0" prefWidth="30.0" stylesheets="@GUI.css" />
+         </children>
+      </AnchorPane>
+      <Pane fx:id="login_pane" prefHeight="750.0" prefWidth="1406.0" styleClass="loginContainer" stylesheets="@GUI.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane fx:id="login_form" layoutX="501.0" layoutY="122.0" prefHeight="505.0" prefWidth="436.0" styleClass="LoginPage" stylesheets="@GUI.css">
+               <children>
+                  <Label contentDisplay="RIGHT" graphicTextGap="20.0" layoutX="143.0" layoutY="37.0" prefHeight="88.0" prefWidth="161.0" style="-fx-alignment: center;" text="Log in" textFill="#006bd4">
+                     <font>
+                        <Font name="Microsoft Sans Serif" size="36.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="login_email_input" layoutX="38.0" layoutY="163.0" prefHeight="46.0" prefWidth="367.0" promptText="Email " stylesheets="@GUI.css">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <font>
+                        <Font name="Microsoft Sans Serif" size="18.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="login_button" layoutX="151.0" layoutY="354.0" mnemonicParsing="false" onAction="#LoginForm" prefHeight="48.0" prefWidth="141.0" stylesheets="@GUI.css" text="Log in" textFill="WHITE">
+                     <font>
+                        <Font name="Microsoft Sans Serif" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button id="newaccountlink" fx:id="gotosignup_button" layoutX="92.0" layoutY="444.0" mnemonicParsing="false" onAction="#LoginForm" prefHeight="27.0" prefWidth="252.0" stylesheets="@GUI.css" text="Don't have an email? Create new one" textFill="#006bd4" underline="true">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="login_email_info" layoutX="38.0" layoutY="217.0" prefHeight="17.0" prefWidth="367.0" textFill="#d74545" />
+                  <Label fx:id="login_pass_info" layoutX="38.0" layoutY="308.0" prefHeight="17.0" prefWidth="367.0" textFill="#d74545" />
+                  <PasswordField fx:id="login_pass_input" layoutX="38.0" layoutY="255.0" prefHeight="46.0" prefWidth="367.0" promptText="Password">
+                     <font>
+                        <Font name="Microsoft Sans Serif" size="18.0" />
+                     </font>
+                  </PasswordField>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

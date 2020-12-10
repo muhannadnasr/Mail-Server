@@ -1,0 +1,152 @@
+.contacts_pane{
+    -fx-background-color: #ffffff
+}
+
+.scroll-pane {
+    -fx-background-color: white;
+}
+
+.scroll-bar:vertical{
+    -fx-background-color: #ffffff;
+}
+
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+    -fx-border-radius:2em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color:derive(#006bd4,40%);
+    -fx-background-insets: 1.5, 0, 0;
+    -fx-background-radius: 2em;
+}
+.scroll-pane > .corner {
+    -fx-background-color: #ffffff;
+}
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.increment-arrow, .decrement-arrow{
+    -fx-shape: " ";
+	-fx-padding:0;
+}
+
+.add_contact_popup TextField{
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #eaeaea transparent;
+    -fx-border-width: 1.5;
+}
+
+.add_contact_popup TextField:focused{
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #006bd4 transparent;
+    -fx-border-width: 1.5;
+}
+.add_contact_popup{
+    -fx-border-width: 1;
+    -fx-border-radius: 2em;
+    -fx-border-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, #eaeaea, 5, 0, 5, 8);
+    -fx-background-color: #ffffff
+}
+#addExtra_button{
+    -fx-background-color: 0;
+    -fx-text-base-color: #006bd4;
+    -fx-border-color: 0;
+    -fx-border-radius: 2em;
+    -fx-border-width: 2;
+}
+
+#addExtra_button:hover{
+    -fx-text-base-color: #1663be;
+}
+#cancelButton{
+    -fx-background-color: 0;
+}
+#addContact{
+    -fx-background-color: #006bd4;
+    -fx-border-color: #006bd4;
+    -fx-border-radius: 2;
+}
+#addContact:hover{
+    -fx-background-color: #1663be;
+    -fx-border-color: #1663be;
+    -fx-border-radius: 2;
+}
+#addContactButton{
+    -fx-background-color: #006bd4;
+     -fx-border-radius: 2;
+}
+#addContactButton:hover{
+    -fx-background-color: #1663be;
+     -fx-border-radius: 2;
+    -fx-cursor: default;
+}
+
+.check-box {
+    /* default properties */
+    selected-box-color: #006bd4;
+    box-color: white;
+    mark-color: white;
+}
+
+.check-box:selected > .box {
+    /* background color for selected checkbox */
+    -fx-background-color: selected-box-color;
+    -fx-border-color: 0;
+    -fx-border-width: 0;
+}
+
+.check-box > .box {
+    /* background color of unselected checkbox */
+    -fx-background-color: box-color;
+    -fx-border-color: lightgrey;
+    -fx-border-radius: 2;
+}
+
+.check-box:selected > .box > .mark,
+.check-box:indeterminate  > .box > .mark {
+    /* modify mark color */
+    -fx-background-color: #006bd4;
+}
+
+#selectAll{
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent lightgrey transparent;
+    -fx-border-width: 1.5;
+}
+#menu{
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent lightgrey transparent;
+    -fx-border-width: 1.5;
+}
+#menu Button{
+    -fx-background-color: 0;
+}
+
+.showContactsPane{
+    -fx-background-color: white;
+}
+.showContactsPane TextField{
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent transparent transparent;
+    -fx-border-width: 1.5;
+}
+
+.showContactsPane TextField:focused{
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #006bd4 transparent;
+    -fx-border-width: 1.5;
+    -fx-text-fill: black;
+}
+
+.showContactsTopBar{
+    -fx-background-color: whitesmoke;
+}
+
+.showContactsTopBar Button{
+    -fx-background-color: 0;
+}

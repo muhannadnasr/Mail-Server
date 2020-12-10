@@ -1,0 +1,91 @@
+.controlBar{
+    -fx-background-color: #eaeaea;
+}
+.combo-box .list-cell
+{
+    -fx-background: #eaeaea;
+    -fx-background-color: #eaeaea;
+    -fx-text-fill: black;
+    -fx-padding: 3 0 2 7;
+    -fx-cell-size: 1.66667em;
+}
+
+.combo-box-popup .list-view
+{
+    -fx-background-color: white, white;
+    -fx-background-insets: 0, 1;
+}
+
+.combo-box-popup .list-view .list-cell
+{
+    -fx-padding: 4 0 4 5;
+    -fx-background-color: white;
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover
+{
+    -fx-background: -fx-accent;
+    -fx-background-color: #eaeaea;
+    -fx-text-fill: black;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover
+{
+    -fx-background-color: #eaeaea;
+    -fx-text-fill: -fx-text-inner-color;
+}
+
+.combo-box-base
+{
+    -fx-background-color: #eaeaea, #eaeaea, #eaeaea, #eaeaea;
+    -fx-border-color: lightgray;
+    -fx-border-radius: 3;
+    -fx-background-radius: 5, 5, 4, 3;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-padding: 0;
+}
+
+.combo-box-base:hover
+{
+    -fx-color: #eaeaea;
+}
+
+.combo-box-base:showing
+{
+    -fx-color: -fx-pressed-base;
+}
+
+.combo-box-base:focused {
+    -fx-background-color: #eaeaea;
+    -fx-background-radius: 6.4, 4, 5, 3;
+    -fx-background-insets: -1.4, 0, 1, 2;
+}
+
+.combo-box-base:disabled {
+    -fx-opacity: .4;
+}
+
+.controlBar TextField{
+    -fx-background-color: #eaeaea;
+    -fx-border-color: transparent transparent #006bd4 transparent;
+    -fx-border-width: 1.5;
+}
+
+.controlBar TextField:focused{
+    -fx-background-color: #eaeaea;
+    -fx-border-color: transparent transparent #1663be transparent;
+    -fx-border-width: 1.5;
+}
+
+.controlBar Button{
+    -fx-background-color: #006bd4;
+    -fx-background-radius: 3;
+}
+
+.controlBar Button:hover{
+    -fx-background-color: #1663be;
+    -fx-background-radius: 3;
+}
+#reloadButton{
+    -fx-background-color: 0;
+}

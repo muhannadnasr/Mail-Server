@@ -1,0 +1,51 @@
+.showEmail_pane{
+    -fx-background-color: white;
+}
+.showEmail_pane TextArea{
+    -fx-background-color: white;
+    -fx-border-color: #eaeaea #eaeaea #eaeaea #eaeaea;
+    -fx-border-radius: 2;
+    -fx-border-width: 1.5;
+}
+.showEmail_pane TextArea:focused{
+    -fx-background-color: white;
+    -fx-border-color: #006bd4 #006bd4 #006bd4 #006bd4;
+    -fx-border-radius: 2;
+    -fx-border-width: 1.5;
+}
+.scroll-pane {
+    -fx-background-color: white;
+}
+
+.scroll-bar:vertical{
+    -fx-background-color: #ffffff;
+}
+
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+    -fx-border-radius:2em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color:derive(#006bd4,40%);
+    -fx-background-insets: 1.5, 0, 0;
+    -fx-background-radius: 2em;
+}
+.scroll-pane > .corner {
+    -fx-background-color: #ffffff;
+}
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.increment-arrow, .decrement-arrow{
+    -fx-shape: " ";
+    -fx-padding:0;
+}
+
+.showEmail_pane Button{
+    -fx-background-color: 0;
+}
+

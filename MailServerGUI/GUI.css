@@ -1,0 +1,95 @@
+.sideBar{
+    -fx-background-color: #006bd4;
+}
+
+.sideBar Button{
+    -fx-background-color: 0;
+    -fx-padding: 6px 6px 6px 16px;
+    -fx-margin-top: 50px;
+}
+
+.sideBar Button:hover{
+    -fx-background-color: #1663be;
+}
+
+#compose_button{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 7;
+}
+
+#compose_button:hover{
+   -fx-background-color: #1663be;
+}
+.loginContainer{
+      -fx-background-color: #fcfcfc;
+}
+.LoginPage{
+    -fx-border-width: 1;
+    -fx-border-radius: 0.4em;
+    -fx-border-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, #eaeaea, 5, 0, 5, 8);
+    -fx-background-color: #ffffff
+}
+
+.LoginPage TextField{
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #eaeaea transparent;
+    -fx-border-width: 1.5;
+}
+
+.LoginPage PasswordField{
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #eaeaea transparent;
+    -fx-border-radius: 0em;
+    -fx-border-width: 1.5;
+}
+
+.LoginPage TextField:focused{
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #006bd4 transparent;
+    -fx-border-width: 1.5;
+}
+
+.LoginPage PasswordField:focused{
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #006bd4 transparent;
+    -fx-border-width: 1.5;
+}
+
+.LoginPage Button{
+    -fx-background-color: #006bd4;
+}
+.LoginPage Button:hover{
+    -fx-background-color: #1663be;
+}
+
+#settingsButton{
+    -fx-border-color: #ffffff #ffffff #ffffff transparent;
+    -fx-border-width: 2px;
+}
+#settingsphoto{
+    -fx-rotate: 0;
+}
+
+#newaccountlink{
+     -fx-background-color: #ffffff;
+}
+
+#newaccountlink:hover{
+     -fx-cursor: hand;
+}
+#usernameLabel{
+    -fx-border-color: #ffffff;
+    -fx-border-width: 2px;
+}
+
+.settingsPane{
+    -fx-background-color: white;
+}
+
+.settingsPane Button{
+    -fx-background-color: 0;
+}
+.settingsPane Button:hover{
+    -fx-background-color: #eaeaea;
+}
